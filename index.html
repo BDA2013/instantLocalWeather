@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5-Day Weather Exclusice</title>
+    <title>5-Day Weather Forecast</title>
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
     <script
       src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -12,7 +12,72 @@
     ></script>
   </head>
   <body>
+    <h1>Weather Forecast</h1>
     
+    <h2>Current Day</h2>
+    <div class="forecast">
+        <h3>Today's Forecast</h3>
+        <p>Temperature: <span id="currentTemperature"></span></p>
+        <p>Condition: <span id="currentCondition"></span></p>
+    </div>
+    
+    <h2>5-Day Forecast</h2>
+    <div class="forecast">
+        <div class="day">
+            <h3>Day 1</h3>
+            <p>Temperature: <span id="day1Temperature"></span></p>
+            <p>Condition: <span id="day1Condition"></span></p>
+        </div>
+        <div class="day">
+            <h3>Day 2</h3>
+            <p>Temperature: <span id="day2Temperature"></span></p>
+            <p>Condition: <span id="day2Condition"></span></p>
+        </div>
+        <div class="day">
+            <h3>Day 3</h3>
+            <p>Temperature: <span id="day3Temperature"></span></p>
+            <p>Condition: <span id="day3Condition"></span></p>
+        </div>
+        <div class="day">
+            <h3>Day 4</h3>
+            <p>Temperature: <span id="day4Temperature"></span></p>
+            <p>Condition: <span id="day4Condition"></span></p>
+        </div>
+        <div class="day">
+            <h3>Day 5</h3>
+            <p>Temperature: <span id="day5Temperature"></span></p>
+            <p>Condition: <span id="day5Condition"></span></p>
+        </div>
+    </div>
     <script src="assets/js/script.js"></script>
   </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Forecast</title>
+</head>
+
+    
+    <script>
+        // Add your JavaScript code here to fetch and update the weather data
+        
+        // Example code to update the current day forecast
+        document.getElementById("currentTemperature").innerText = "25°C";
+        document.getElementById("currentCondition").innerText = "Sunny";
+        
+        // Example code to update the 5-day forecast
+        document.getElementById("day1Temperature").innerText = "23°C";
+        document.getElementById("day1Condition").innerText = "Partly Cloudy";
+        document.getElementById("day2Temperature").innerText = "21°C";
+        document.getElementById("day2Condition").innerText = "Rainy";
+        document.getElementById("day3Temperature").innerText = "22°C";
+        document.getElementById("day3Condition").innerText = "Cloudy";
+        document.getElementById("day4Temperature").innerText = "24°C";
+        document.getElementById("day4Condition").innerText = "Sunny";
+        document.getElementById("day5Temperature").innerText = "26°C";
+        document.getElementById("day5Condition").innerText = "Mostly Sunny";
+    </script>
+</body>
 </html>
