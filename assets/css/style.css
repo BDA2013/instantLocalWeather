@@ -27,6 +27,12 @@ h2 {
   margin-bottom: 5px;
 }
 
+/* Example icon styles */
+.weather-icon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
 /* Forecast container styles */
 .forecast {
   background-color: #fff;
