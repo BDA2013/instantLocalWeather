@@ -9,7 +9,7 @@ function gatherWeather(lat, lon) {
 };
 
 function gatherLatLon(city, state) {
-  fetch(`https://api.geoapify.com/v1/geocode/search?city=${city}&state=${state}&format=json&apiKey=50289ffe2e1e48c89c814826023cb2c0`)
+  fetch(`https://api.geoapify.com/v1/geocode/search?city=${city}&state=${state}&format=json&apiKey=ff79fe741988451695b4d420a554505d`)
   .then(function (response) {
       return response.json();
   })
