@@ -17,6 +17,16 @@ h2 {
   color: #666;
 }
 
+/* Location List */
+.location-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.location-list li {
+  margin-bottom: 5px;
+}
+
 /* Forecast container styles */
 .forecast {
   background-color: #fff;
