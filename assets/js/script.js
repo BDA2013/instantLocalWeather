@@ -1,3 +1,7 @@
+//Value
+var locationInput = document.getElementById("locationInput");
+var weatherButton = document.getElementById("getWeather");
+
 // Example code to update the current day forecast
 var currentIcon = document.getElementById("currentIcon");
 var currentTemp = document.getElementById("currentTemperature").innerText = "25°C";
@@ -61,10 +65,10 @@ function gatherLatLon(city, state) {
 };
 
 function gatherLocationInput(){
-  var locationInput = "Englewood, New Jersey";
-  console.log(locationInput);
+  var location = locationInput.value;
+  console.log(location);
 
-  var inputArray = locationInput.split(',');
+  var inputArray = location.split(',');
 
   // NJ
   var fixedStateArray = inputArray[1].trimStart();
@@ -74,5 +78,14 @@ function gatherLocationInput(){
   gatherLatLon(inputArray);
 }
 
-gatherLocationInput();
+weatherButton.addEventListener('click', function() {
+  gatherLocationInput();
+});
+
+locationInput.addEventListener('keypress', function(e) {
+  if(e.key === 'Enter') {
+    gatherLocationInput();
+  }
+})
+//gatherLocationInput();
 
