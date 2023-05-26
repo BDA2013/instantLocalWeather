@@ -63,7 +63,10 @@ function gatherLatLon(city, state) {
 function gatherLocationInput(){
   var locationInput = "Englewood, New Jersey";
   console.log(locationInput);
+
   var inputArray = locationInput.split(',');
+
+  // NJ
   var fixedStateArray = inputArray[1].trimStart();
   inputArray[1] = fixedStateArray; 
 
