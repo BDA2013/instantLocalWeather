@@ -26,7 +26,7 @@ var day3Humi = document.getElementById("day3Humidity");
 
 var day4Icon = document.getElementById("day4Icon");
 var day4Temp = document.getElementById("day4Temperature").innerText = "24°C";
-var day4Cond = ocument.getElementById("day4Condition").innerText = "Sunny";
+var day4Cond = document.getElementById("day4Condition").innerText = "Sunny";
 var day4Wind = document.getElementById("day4WindSpeed");
 var day4Humi = document.getElementById("day4Humidity");
 
