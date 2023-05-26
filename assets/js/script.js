@@ -87,5 +87,5 @@ locationInput.addEventListener('keypress', function(e) {
     gatherLocationInput();
   }
 })
-//gatherLocationInput();
+
 
