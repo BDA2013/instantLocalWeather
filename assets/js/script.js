@@ -82,8 +82,8 @@ function gatherLatLon(city, state) {
   });
 };
 
-function gatherLocationInput() {
-  var location = locationInput.value;
+function gatherLocationInput(value) {
+  var location = value;
   console.log(location);
 
   var inputArray = location.split(',');
@@ -96,25 +96,32 @@ function gatherLocationInput() {
   gatherLatLon(inputArray);
 }
 
-function storeLocationInput() {
-  var location = locationInput.value;
+function storeLocationInput(value) {
+  var location = value;
 
   const newButton = document.createElement("button");
-  newButton.setAttribute("id", "pastLocations")
+  newButton.setAttribute("id", "pastLocation")
   newButton.innerHTML = location;
   locationList.appendChild(newButton);
 }
 
 weatherButton.addEventListener('click', function() {
-  gatherLocationInput();
+  locationTyped = locationInput.value;
+  gatherLocationInput(locationTyped);
+  storeLocationInput(locationTyped);
 });
 
 locationInput.addEventListener('keypress', function(e) {
   if(e.key === 'Enter') {
-    gatherLocationInput();
-    storeLocationInput();
+    gatherLocationInput(locationInput.value);
+    storeLocationInput(locationInput.value);
   }
-})
+});
+
+locationList.addEventListener('click', function() {
+  locationButton = document.getElementById("pastLocation").innerHTML;
+  gatherLocationInput(locationButton);
+});
 
 
 
