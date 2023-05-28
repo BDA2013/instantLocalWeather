@@ -88,25 +88,25 @@ function gatherLocationInput(value) {
 
   var inputArray = location.split(',');
 
-  // NJ
   var fixedStateArray = inputArray[1].trimStart();
   inputArray[1] = fixedStateArray; 
 
   console.log(inputArray);
   gatherLatLon(inputArray);
-}
+};
 
 function storeLocationInput(value) {
   var location = value;
 
-  const newButton = document.createElement("button");
+  var newButton = document.createElement("button");
   newButton.setAttribute("id", "pastLocation")
   newButton.innerHTML = location;
+  newButton.value = location;
   locationList.appendChild(newButton);
-}
+};
 
 weatherButton.addEventListener('click', function() {
-  locationTyped = locationInput.value;
+  var locationTyped = locationInput.value;
   gatherLocationInput(locationTyped);
   storeLocationInput(locationTyped);
 });
@@ -118,9 +118,8 @@ locationInput.addEventListener('keypress', function(e) {
   }
 });
 
-locationList.addEventListener('click', function() {
-  locationButton = document.getElementById("pastLocation").innerHTML;
-  gatherLocationInput(locationButton);
+locationList.addEventListener('click', function(e) {
+  gatherLocationInput(e.target.value)
 });
 
 
