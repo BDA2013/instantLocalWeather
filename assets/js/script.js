@@ -1,6 +1,7 @@
 //Value
 var locationInput = document.getElementById("locationInput");
 var weatherButton = document.getElementById("getWeather");
+var locationList = document.getElementById("locationList");
 
 // Example code to update the current day forecast
 var currentIcon = document.getElementById("currentIcon");
@@ -46,7 +47,24 @@ function gatherWeather(lat, lon) {
     return response.json();
   })
   .then(function (data) {
-    console.log(data);
+    //console.log(data);
+    var list = data.list;
+    console.log(list);
+    for (var i = 0; i < list.length; i++) {
+      list[i].dt_txt; //Date
+      list[i].main.humidity; //humidity
+      list[i].main.temp; //current temp
+      list[i].wind.speed; //Wind
+      list[i].weather[0].icon;  //Icons
+      list[i].weather[0].description; //conditions
+      console.log("Date:", list[i].dt_txt);
+      console.log("Humidity:", list[i].main.humidity);
+      console.log("Temperature:", list[i].main.temp);
+      console.log("Wind Speed:", list[i].wind.speed);
+      console.log("Icon:", list[i].weather[0].icon);
+      console.log("Condition:", list[i].weather[0].description);
+      console.log(" ");
+    }
   });
 };
 
@@ -64,7 +82,7 @@ function gatherLatLon(city, state) {
   });
 };
 
-function gatherLocationInput(){
+function gatherLocationInput() {
   var location = locationInput.value;
   console.log(location);
 
@@ -78,6 +96,15 @@ function gatherLocationInput(){
   gatherLatLon(inputArray);
 }
 
+function storeLocationInput() {
+  var location = locationInput.value;
+
+  const newButton = document.createElement("button");
+  newButton.setAttribute("id", "pastLocations")
+  newButton.innerHTML = location;
+  locationList.appendChild(newButton);
+}
+
 weatherButton.addEventListener('click', function() {
   gatherLocationInput();
 });
@@ -85,7 +112,9 @@ weatherButton.addEventListener('click', function() {
 locationInput.addEventListener('keypress', function(e) {
   if(e.key === 'Enter') {
     gatherLocationInput();
+    storeLocationInput();
   }
 })
+
 
 
