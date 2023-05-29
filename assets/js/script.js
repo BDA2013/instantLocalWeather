@@ -2,6 +2,7 @@
 var locationInput = document.getElementById("locationInput");
 var weatherButton = document.getElementById("getWeather");
 var locationList = document.getElementById("locationList");
+var list = [];
 
 // Example code to update the current day forecast
 var currentIcon = document.getElementById("currentIcon");
@@ -97,13 +98,20 @@ function gatherLocationInput(value) {
 
 function storeLocationInput(value) {
   var location = value;
-
   var newButton = document.createElement("button");
   newButton.setAttribute("id", "pastLocation")
   newButton.innerHTML = location;
   newButton.value = location;
   locationList.appendChild(newButton);
+  list.push(newButton.value);
+
+  locationLocalStorage()
 };
+
+function locationLocalStorage() {
+    var name = "storedLocation";
+    localStorage.setItem(name, list);
+  }
 
 weatherButton.addEventListener('click', function() {
   var locationTyped = locationInput.value;
