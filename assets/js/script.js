@@ -4,14 +4,14 @@ var weatherButton = document.getElementById("getWeather");
 var locationList = document.getElementById("locationList");
 var list = [];
 
-// Example code to update the current day forecast
+// Current Day
 var currentIcon = document.getElementById("currentIcon");
 var currentTemp = document.getElementById("currentTemperature").innerText = "25°C";
 var currentCond = document.getElementById("currentCondition").innerText = "Sunny";
 var currentWind = document.getElementById("currentWindSpeed");
 var currentHumi = document.getElementById("currentHumidity");
 
-// Example code to update the 5-day forecast
+// 5-day forecast
 var day1Icon = document.getElementById("day1Icon");
 var day1Temp = document.getElementById("day1Temperature").innerText = "23°C";
 var day1Cond = document.getElementById("day1Condition").innerText = "Partly Cloudy";
@@ -105,13 +105,17 @@ function storeLocationInput(value) {
   locationList.appendChild(newButton);
   list.push(newButton.value);
 
-  locationLocalStorage()
+  locationSaved()
 };
 
-function locationLocalStorage() {
-    var name = "storedLocation";
-    localStorage.setItem(name, list);
+function locationSaved() {
+  for(var i = 0; i < list.length; i++) {
+    var name = "storedLocation" + [i];
+    localStorage.setItem(name, list[i]);
   }
+}
+
+
 
 weatherButton.addEventListener('click', function() {
   var locationTyped = locationInput.value;
