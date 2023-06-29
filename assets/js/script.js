@@ -50,7 +50,7 @@ function gatherWeather(lat, lon) {
     currentTemp.innerHTML = parseInt(data.list[0].main.temp) + "°F";
     currentCond.innerHTML = data.list[0].weather[0].description;
     currentWind.innerHTML = parseInt(data.list[0].wind.speed) + " MPH";
-    currentHumi.innerHTML = data.list[0].main.humidity + "%" 
+    currentHumi.innerHTML = data.list[0].main.humidity + "%"; 
   });
 };
 
