@@ -4,6 +4,29 @@ var weatherButton = document.getElementById("getWeather");
 var locationList = document.getElementById("locationList");
 var list = [];
 
+function Unix_timestamp(t) {
+  var dt = new Date(t * 1000);
+  var hours = dt.getHours() - 1;
+  var minutes = "0" + dt.getMinutes();
+  var AmOrPm = hours >= 12 ? 'pm' : 'am';
+  hours = (hours % 12) || 12;
+  var finalTime = hours + ":" + minutes + " " + AmOrPm;
+  return finalTime
+}
+
+function convertTo12Hrs(selectedTime) {
+  var time = selectedTime;
+  var hour = time.split(':')
+  var hours = hour[0]; // gives the value in 24 hours format
+  var AmOrPm = hours >= 12 ? 'pm' : 'am';
+  hours = (hours % 12) || 12;
+  var minutes = time.getMinutes();
+  var finalTime = hours + ":" + minutes + " " + AmOrPm;
+  return finalTime
+}
+
+
+
 // Current Day
 var currentIcon = document.getElementById("currentIcon");
 var currentTemp = document.getElementById("currentTemperature");
@@ -42,32 +65,34 @@ var day5Cond = document.getElementById("day5Condition");
 var day5Wind = document.getElementById("day5WindSpeed");
 var day5Humi = document.getElementById("day5Humidity");
 
-function gatherWeather(lat, lon) {
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=89d3bde90b46aeb52fc0fca5cffee20e`)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-    currentTemp.innerHTML = parseInt(data.list[0].main.temp) + "°F";
-    currentCond.innerHTML = data.list[0].weather[0].description;
-    currentWind.innerHTML = parseInt(data.list[0].wind.speed) + " MPH";
-    currentHumi.innerHTML = data.list[0].main.humidity + "%"; 
-  });
-};
-
 function gatherLatLon(city, state) {
   fetch(`https://api.geoapify.com/v1/geocode/search?city=${city}&state=${state}&format=json&apiKey=ff79fe741988451695b4d420a554505d`)
-  .then(function (response) {
+    .then(function (response) {
       return response.json();
-  })
-  .then(function (data) {
+    })
+    .then(function (data) {
       //console.log(data);
       locationLon = data.results[0].lon;
       locationLat = data.results[0].lat;
-      console.log(locationLat, locationLon);
-      gatherWeather(locationLat, locationLon);   
-  });
+      //console.log(locationLat, locationLon);
+      gatherWeather(locationLat, locationLon);
+    });
+};
+
+function gatherWeather(lat, lon) {
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=89d3bde90b46aeb52fc0fca5cffee20e`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      currentTemp.innerHTML = parseInt(data.list[0].main.temp) + "°F";
+      currentCond.innerHTML = data.list[0].weather[0].description;
+      currentWind.innerHTML = parseInt(data.list[0].wind.speed) + " MPH";
+      currentHumi.innerHTML = data.list[0].main.humidity + "%";
+
+      //console.log(Unix_timestamp(data.list[0].dt ));
+    });
 };
 
 function gatherLocationInput(value) {
@@ -77,7 +102,7 @@ function gatherLocationInput(value) {
   var inputArray = location.split(',');
 
   var fixedStateArray = inputArray[1].trimStart();
-  inputArray[1] = fixedStateArray; 
+  inputArray[1] = fixedStateArray;
 
   console.log(inputArray);
   gatherLatLon(inputArray);
@@ -96,7 +121,7 @@ function storeLocationInput(value) {
 };
 
 function locationSaved() {
-  for(var i = 0; i < list.length; i++) {
+  for (var i = 0; i < list.length; i++) {
     var name = "storedLocation" + [i];
     localStorage.setItem(name, list[i]);
   }
@@ -104,20 +129,20 @@ function locationSaved() {
 
 
 
-weatherButton.addEventListener('click', function() {
+weatherButton.addEventListener('click', function () {
   var locationTyped = locationInput.value;
   gatherLocationInput(locationTyped);
   storeLocationInput(locationTyped);
 });
 
-locationInput.addEventListener('keypress', function(e) {
-  if(e.key === 'Enter') {
+locationInput.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
     gatherLocationInput(locationInput.value);
     storeLocationInput(locationInput.value);
   }
 });
 
-locationList.addEventListener('click', function(e) {
+locationList.addEventListener('click', function (e) {
   gatherLocationInput(e.target.value)
 });
 
