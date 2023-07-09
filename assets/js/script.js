@@ -4,28 +4,30 @@ var weatherButton = document.getElementById("getWeather");
 var locationList = document.getElementById("locationList");
 var list = [];
 
-function Unix_timestamp(t) {
+var storedDataList = [];
+
+function unixTimestampTo12Hour(t) {
   var dt = new Date(t * 1000);
-  var hours = dt.getHours() - 1;
+  var month = dt.toLocaleString("en-US", { month: "long" });
+  var day = dt.toLocaleString("en-US", { day: "numeric" });
+  var year = dt.toLocaleString("en-US", { year: "numeric" });
+  var hours = dt.getHours();
   var minutes = "0" + dt.getMinutes();
   var AmOrPm = hours >= 12 ? 'pm' : 'am';
   hours = (hours % 12) || 12;
+  var finalDate = month + " " + day + ", " + year;
   var finalTime = hours + ":" + minutes + " " + AmOrPm;
-  return finalTime
+  return (finalDate + "  " + finalTime)
 }
 
-function convertTo12Hrs(selectedTime) {
-  var time = selectedTime;
-  var hour = time.split(':')
-  var hours = hour[0]; // gives the value in 24 hours format
-  var AmOrPm = hours >= 12 ? 'pm' : 'am';
-  hours = (hours % 12) || 12;
-  var minutes = time.getMinutes();
-  var finalTime = hours + ":" + minutes + " " + AmOrPm;
-  return finalTime
+function millitaryTo12Hour(t) {
+  var time = t.split(':');
+  var hours = (parseInt(time[0]) % 12) || 12 // gives the value in 24 hours format
+  var minutes = "0" + parseInt(time[1]);
+  var amOrPm = hours >= 12 ? 'pm' : 'am';
+  return `${hours}:${minutes} ${amOrPm}`; 
+
 }
-
-
 
 // Current Day
 var currentIcon = document.getElementById("currentIcon");
@@ -86,12 +88,105 @@ function gatherWeather(lat, lon) {
     })
     .then(function (data) {
       console.log(data);
-      currentTemp.innerHTML = parseInt(data.list[0].main.temp) + "°F";
-      currentCond.innerHTML = data.list[0].weather[0].description;
-      currentWind.innerHTML = parseInt(data.list[0].wind.speed) + " MPH";
-      currentHumi.innerHTML = data.list[0].main.humidity + "%";
+      const weather = data.list;
+      console.log(weather.length);
+      currentTemp.innerHTML = parseInt(weather[0].main.temp) + "°F";
+      currentCond.innerHTML = weather[0].weather[0].description;
+      currentWind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
+      currentHumi.innerHTML = weather[0].main.humidity + "%";
 
-      //console.log(Unix_timestamp(data.list[0].dt ));
+      let storedTimestamp = weather[0].dt
+
+      var startingDateTime = unixTimestampTo12Hour(storedTimestamp).split("  ");
+
+      console.log(startingDateTime[1]);
+      //5-Day Forecast
+      for (var d = 0; d < 5; d++) {
+        switch (d) {
+          case 0:
+            for (var i = 1; i < weather.length; i++) {
+              if (weather[i].dt != storedTimestamp || weather[i].dt > weather[0].dt) {
+                let weatherTime = weather[i].dt_txt.split(' ');
+                let selectedTime = millitaryTo12Hour(weatherTime[1]);
+                console.log(selectedTime);
+                if (selectedTime = startingDateTime[1]) {
+                  day1Temp.innerHTML = parseInt(weather[0].main.temp) + "°F";
+                  day1Cond.innerHTML = weather[0].weather[0].description;
+                  day1Wind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
+                  day1Humi.innerHTML = weather[0].main.humidity + "%";
+                  storedTimestamp = weather[i].dt;
+                  break;
+                };
+              };
+            };
+          /*
+          case 2:
+            for (var i = 0; i < weather.length; i++) {
+              if (weather[i].dt != storedTimestamp || weather[i].dt > weather[0].dt) {
+                let weatherTime = weather[i].dt_txt.split(' ');
+                let selectedTime = weatherTime[1];
+                if (selectedTime[1] == startingDateTime[1]) {
+                  day2Temp.innerHTML = parseInt(weather[0].main.temp) + "°F";
+                  day2Cond.innerHTML = weather[0].weather[0].description;
+                  day2Wind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
+                  day2Humi.innerHTML = weather[0].main.humidity + "%";
+                  storedTimestamp = weather[i].dt;
+                  break;
+                };
+              };
+            };
+
+          case 3:
+            for (var i = 0; i < weather.length; i++) {
+              if (weather[i].dt != storedTimestamp || weather[i].dt > weather[0].dt) {
+                let weatherTime = weather[i].dt_txt.split(' ');
+                let selectedTime = weatherTime[1];
+                if (selectedTime[1] == startingDateTime[1]) {
+                  day3Temp.innerHTML = parseInt(weather[0].main.temp) + "°F";
+                  day3Cond.innerHTML = weather[0].weather[0].description;
+                  day3Wind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
+                  day3Humi.innerHTML = weather[0].main.humidity + "%";
+                  storedTimestamp = weather[i].dt;
+                  break;
+                };
+              };
+            };
+
+          case 4:
+            for (var i = 0; i < weather.length; i++) {
+              if (weather[i].dt != storedTimestamp || weather[i].dt > weather[0].dt) {
+                let weatherTime = weather[i].dt_txt.split(' ');
+                let selectedTime = weatherTime[1];
+                if (selectedTime[1] == startingDateTime[1]) {
+                  day4Temp.innerHTML = parseInt(weather[0].main.temp) + "°F";
+                  day4Cond.innerHTML = weather[0].weather[0].description;
+                  day4Wind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
+                  day4Humi.innerHTML = weather[0].main.humidity + "%";
+                  storedTimestamp = weather[i].dt;
+                  break;
+                };
+              };
+            };
+
+          case 5:
+            for (var i = 0; i < weather.length; i++) {
+              if (weather[i].dt != storedTimestamp || weather[i].dt > weather[0].dt) {
+                let weatherTime = weather[i].dt_txt.split(' ');
+                let selectedTime = weatherTime[1];
+                if (selectedTime[1] == startingDateTime[1]) {
+                  day5Temp.innerHTML = parseInt(weather[0].main.temp) + "°F";
+                  day5Cond.innerHTML = weather[0].weather[0].description;
+                  day5Wind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
+                  day5Humi.innerHTML = weather[0].main.humidity + "%";
+                  storedTimestamp = weather[i].dt;
+                  break;
+                };
+              };
+            };
+            */
+        }
+      
+      }
     });
 };
 
@@ -127,8 +222,6 @@ function locationSaved() {
   }
 }
 
-
-
 weatherButton.addEventListener('click', function () {
   var locationTyped = locationInput.value;
   gatherLocationInput(locationTyped);
@@ -145,6 +238,3 @@ locationInput.addEventListener('keypress', function (e) {
 locationList.addEventListener('click', function (e) {
   gatherLocationInput(e.target.value)
 });
-
-
-
