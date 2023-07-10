@@ -110,10 +110,10 @@ function gatherWeather(lat, lon) {
                 let selectedTime = millitaryTo12Hour(weatherTime[1]);
                 console.log(selectedTime);
                 if (selectedTime = startingDateTime[1]) {
-                  day1Temp.innerHTML = parseInt(weather[0].main.temp) + "°F";
-                  day1Cond.innerHTML = weather[0].weather[0].description;
-                  day1Wind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
-                  day1Humi.innerHTML = weather[0].main.humidity + "%";
+                  day1Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
+                  day1Cond.innerHTML = weather[i].weather[0].description;
+                  day1Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
+                  day1Humi.innerHTML = weather[i].main.humidity + "%";
                   storedTimestamp = weather[i].dt;
                   break;
                 };
