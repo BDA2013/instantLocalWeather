@@ -42,6 +42,10 @@ h2 {
   margin-bottom: 20px;
 }
 
+#futureForecast {
+  visibility: hidden;
+}
+
 /* Day container styles */
 .day {
   margin-bottom: 10px;

@@ -2,6 +2,7 @@
 var locationInput = document.getElementById("locationInput");
 var weatherButton = document.getElementById("getWeather");
 var locationList = document.getElementById("locationList");
+var divForecastVisability = document.getElementById("futureForecast");
 var list = [];
 
 var storedDataList = [];
@@ -25,7 +26,7 @@ function millitaryTo12Hour(t) {
   var hours = (parseInt(time[0]) % 12) || 12 // gives the value in 24 hours format
   var minutes = "0" + parseInt(time[1]);
   var amOrPm = hours >= 12 ? 'pm' : 'am';
-  return `${hours}:${minutes} ${amOrPm}`; 
+  return `${hours}:${minutes} ${amOrPm}`;
 
 }
 
@@ -87,9 +88,8 @@ function gatherWeather(lat, lon) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      //console.log(data);
       const weather = data.list;
-      console.log(weather.length);
       currentTemp.innerHTML = parseInt(weather[0].main.temp) + "°F";
       currentCond.innerHTML = weather[0].weather[0].description;
       currentWind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
@@ -119,7 +119,7 @@ function gatherWeather(lat, lon) {
               };
             };
 
-            case 1:
+          case 1:
             for (var i = 1; i < weather.length; i++) {
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 let weatherTime = weather[i].dt_txt.split(' ');
@@ -136,7 +136,7 @@ function gatherWeather(lat, lon) {
               };
             };
 
-            case 2:
+          case 2:
             for (var i = 1; i < weather.length; i++) {
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 let weatherTime = weather[i].dt_txt.split(' ');
@@ -153,7 +153,7 @@ function gatherWeather(lat, lon) {
               };
             };
 
-            case 3:
+          case 3:
             for (var i = 1; i < weather.length; i++) {
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 let weatherTime = weather[i].dt_txt.split(' ');
@@ -170,7 +170,7 @@ function gatherWeather(lat, lon) {
               };
             };
 
-            case 4:
+          case 4:
             for (var i = 1; i < weather.length; i++) {
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 let weatherTime = weather[i].dt_txt.split(' ');
@@ -187,6 +187,7 @@ function gatherWeather(lat, lon) {
               };
             };
         };
+        divForecastVisability.style.visibility = "visible";
       };
     });
 };
@@ -225,17 +226,37 @@ function locationSaved() {
 
 weatherButton.addEventListener('click', function () {
   var locationTyped = locationInput.value;
-  gatherLocationInput(locationTyped);
-  storeLocationInput(locationTyped);
+  if (divForecastVisability.style.visibility == "visible") {
+    divForecastVisability.style.visibility = "hidden";
+    gatherLocationInput(locationTyped);
+    storeLocationInput(locationTyped);
+  } else {
+    gatherLocationInput(locationTyped);
+    storeLocationInput(locationTyped);
+  }
 });
 
 locationInput.addEventListener('keypress', function (e) {
+  var locationTyped = locationInput.value;
   if (e.key === 'Enter') {
-    gatherLocationInput(locationInput.value);
-    storeLocationInput(locationInput.value);
+    if (divForecastVisability.style.visibility == "visible") {
+      divForecastVisability.style.visibility = "hidden";
+      gatherLocationInput(locationTyped);
+      storeLocationInput(locationTyped);
+    } else {
+      gatherLocationInput(locationTyped);
+      storeLocationInput(locationTyped);
+    }
   }
 });
 
 locationList.addEventListener('click', function (e) {
-  gatherLocationInput(e.target.value)
+  if (divForecastVisability.style.visibility == "visible") {
+    divForecastVisability.style.visibility = "hidden";
+    gatherLocationInput(e.target.value)
+  } else {
+    gatherLocationInput(e.target.value)
+  }
 });
+
+
