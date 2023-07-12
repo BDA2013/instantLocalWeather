@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5-Day Weather Forecast</title>
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
-  </head>
-  <body>
-    <h1>Weather Forecast</h1>
 
-    <div>
-      <label for="locationInput">Enter location:</label>
-      <input type="text" id="locationInput" placeholder="City, State">
-      <button id="getWeather">Get Forecast</button>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5-Day Weather Forecast</title>
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+</head>
 
-    <h2>Entered Locations</h2>
-    <div id="locationList" class="location-list"></div>
-    
-    <h2>Current Day</h2>
+<body>
+  <h1>Weather Forecast</h1>
+
+  <div>
+    <label for="locationInput">Enter location:</label>
+    <input type="text" id="locationInput" placeholder="City, State">
+    <button id="getWeather">Get Forecast</button>
+  </div>
+
+  <h2>Entered Locations</h2>
+  <div id="locationList" class="location-list"></div>
+
+  <section id="results">
+    <h2 id="day0">Current Day</h2>
     <div class="forecast">
       <h3>Today's Forecast <i id="currentIcon" class="weather-icon"></i></h3>
       <p>Temperature: <span id="currentTemperature"></span></p>
@@ -26,42 +29,42 @@
       <p>Wind Speed: <span id="currentWindSpeed"></span></p>
       <p>Humidity: <span id="currentHumidity"></span></p>
     </div>
-    
+
     <h2>4-Day Forecast</h2>
-    <div id="futureForecast" class="forecast">
+    <div class="forecast">
       <div class="day">
-          <h3>Day 1<i id="day1Icon" class="weather-icon"></i></h3>
-          <p>Temperature: <span id="day1Temperature"></span></p>
-          <p>Condition: <span id="day1Condition"></span></p>
-          <p>Wind Speed: <span id="day1WindSpeed"></span></p>
-          <p>Humidity: <span id="day1Humidity"></span></p>
+        <h3 id="day1">Day 1<i id="day1Icon" class="weather-icon"></i></h3>
+        <p>Temperature: <span id="day1Temperature"></span></p>
+        <p>Condition: <span id="day1Condition"></span></p>
+        <p>Wind Speed: <span id="day1WindSpeed"></span></p>
+        <p>Humidity: <span id="day1Humidity"></span></p>
       </div>
       <div class="day">
-        <h3>Day 2<i id="day2Icon" class="weather-icon"></i></h3>
+        <h3 id="day2">Day 2<i id="day2Icon" class="weather-icon"></i></h3>
         <p>Temperature: <span id="day2Temperature"></span></p>
         <p>Condition: <span id="day2Condition"></span></p>
         <p>Wind Speed: <span id="day2WindSpeed"></span></p>
         <p>Humidity: <span id="day2Humidity"></span></p>
-    </div>
-        <div class="day">
-          <h3>Day 3 <i id="day3Icon" class="weather-icon"></i></h3>
-            <p>Temperature: <span id="day3Temperature"></span></p>
-            <p>Condition: <span id="day3Condition"></span></p>
-            <p>Wind Speed: <span id="day3WindSpeed"></span></p>
-            <p>Humidity: <span id="day3Humidity"></span></p>
-        </div>
-        <div class="day">
-          <h3>Day 4 <i id="day4Icon" class="weather-icon"></i></h3>
-          <p>Temperature: <span id="day4Temperature"></span></p>
-          <p>Condition: <span id="day4Condition"></span></p>
-          <p>Wind Speed: <span id="day4WindSpeed"></span></p>
-          <p>Humidity: <span id="day4Humidity"></span></p>
+      </div>
+      <div class="day">
+        <h3 id="day3">Day 3 <i id="day3Icon" class="weather-icon"></i></h3>
+        <p>Temperature: <span id="day3Temperature"></span></p>
+        <p>Condition: <span id="day3Condition"></span></p>
+        <p>Wind Speed: <span id="day3WindSpeed"></span></p>
+        <p>Humidity: <span id="day3Humidity"></span></p>
+      </div>
+      <div class="day">
+        <h3 id="day4">Day 4 <i id="day4Icon" class="weather-icon"></i></h3>
+        <p>Temperature: <span id="day4Temperature"></span></p>
+        <p>Condition: <span id="day4Condition"></span></p>
+        <p>Wind Speed: <span id="day4WindSpeed"></span></p>
+        <p>Humidity: <span id="day4Humidity"></span></p>
       </div>
     </div>
-    <script
-    src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-    crossorigin="anonymous"></script>
-    <script src="assets/js/script.js"></script>
-  </body>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+
 </html>

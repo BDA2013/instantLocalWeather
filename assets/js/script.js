@@ -2,7 +2,7 @@
 var locationInput = document.getElementById("locationInput");
 var weatherButton = document.getElementById("getWeather");
 var locationList = document.getElementById("locationList");
-var divForecastVisability = document.getElementById("futureForecast");
+var forecastVisability = document.getElementById("results");
 var list = [];
 
 var storedDataList = [];
@@ -31,6 +31,7 @@ function millitaryTo12Hour(t) {
 }
 
 // Current Day
+var day0Label = document.getElementById("day0");
 var currentIcon = document.getElementById("currentIcon");
 var currentTemp = document.getElementById("currentTemperature");
 var currentCond = document.getElementById("currentCondition");
@@ -38,24 +39,28 @@ var currentWind = document.getElementById("currentWindSpeed");
 var currentHumi = document.getElementById("currentHumidity");
 
 // 5-day forecast
+var day1Label = document.getElementById("day1");
 var day1Icon = document.getElementById("day1Icon");
 var day1Temp = document.getElementById("day1Temperature");
 var day1Cond = document.getElementById("day1Condition");
 var day1Wind = document.getElementById("day1WindSpeed");
 var day1Humi = document.getElementById("day1Humidity");
 
+var day2Label = document.getElementById("day2");
 var day2Icon = document.getElementById("day2Icon");
 var day2Temp = document.getElementById("day2Temperature");
 var day2Cond = document.getElementById("day2Condition");
 var day2Wind = document.getElementById("day2WindSpeed");
 var day2Humi = document.getElementById("day2Humidity");
 
+var day3Label = document.getElementById("day3");
 var day3Icon = document.getElementById("day3Icon");
 var day3Temp = document.getElementById("day3Temperature");
 var day3Cond = document.getElementById("day3Condition");
 var day3Wind = document.getElementById("day3WindSpeed");
 var day3Humi = document.getElementById("day3Humidity");
 
+var day4Label = document.getElementById("day4");
 var day4Icon = document.getElementById("day4Icon");
 var day4Temp = document.getElementById("day4Temperature");
 var day4Cond = document.getElementById("day4Condition");
@@ -166,7 +171,7 @@ function gatherWeather(lat, lon) {
               };
             };
         };
-        divForecastVisability.style.visibility = "visible";
+        forecastVisability.style.visibility = "visible";
       };
     });
 };
@@ -205,8 +210,8 @@ function locationSaved() {
 
 weatherButton.addEventListener('click', function () {
   var locationTyped = locationInput.value;
-  if (divForecastVisability.style.visibility == "visible") {
-    divForecastVisability.style.visibility = "hidden";
+  if (forecastVisability.style.visibility == "visible") {
+    forecastVisability.style.visibility = "hidden";
     gatherLocationInput(locationTyped);
     storeLocationInput(locationTyped);
   } else {
@@ -218,8 +223,8 @@ weatherButton.addEventListener('click', function () {
 locationInput.addEventListener('keypress', function (e) {
   var locationTyped = locationInput.value;
   if (e.key === 'Enter') {
-    if (divForecastVisability.style.visibility == "visible") {
-      divForecastVisability.style.visibility = "hidden";
+    if (forecastVisability.style.visibility == "visible") {
+      forecastVisability.style.visibility = "hidden";
       gatherLocationInput(locationTyped);
       storeLocationInput(locationTyped);
     } else {
@@ -230,8 +235,8 @@ locationInput.addEventListener('keypress', function (e) {
 });
 
 locationList.addEventListener('click', function (e) {
-  if (divForecastVisability.style.visibility == "visible") {
-    divForecastVisability.style.visibility = "hidden";
+  if (forecastVisability.style.visibility == "visible") {
+    forecastVisability.style.visibility = "hidden";
     gatherLocationInput(e.target.value)
   } else {
     gatherLocationInput(e.target.value)
