@@ -1,23 +1,21 @@
 //Value
-var locationInput = document.getElementById("locationInput");
-var weatherButton = document.getElementById("getWeather");
-var locationList = document.getElementById("locationList");
-var forecastVisability = document.getElementById("results");
-var list = [];
-
-var storedDataList = [];
+const locationInput = document.getElementById("locationInput");
+const weatherButton = document.getElementById("getWeather");
+const locationList = document.getElementById("locationList");
+const forecastVisability = document.getElementById("results");
+let list = [];
 
 function unixTimestampTo12Hour(t) {
-  var dt = new Date(t * 1000);
-  var month = dt.toLocaleString("en-US", { month: "long" });
-  var day = dt.toLocaleString("en-US", { day: "numeric" });
-  var year = dt.toLocaleString("en-US", { year: "numeric" });
-  var hours = dt.getHours();
-  var minutes = "0" + dt.getMinutes();
-  var AmOrPm = hours >= 12 ? 'pm' : 'am';
+  const dt = new Date(t * 1000);
+  const month = dt.toLocaleString("en-US", { month: "long" });
+  const day = dt.toLocaleString("en-US", { day: "numeric" });
+  const year = dt.toLocaleString("en-US", { year: "numeric" });
+  let hours = dt.getHours();
+  const minutes = "0" + dt.getMinutes();
+  const AmOrPm = hours >= 12 ? 'pm' : 'am';
   hours = (hours % 12) || 12;
-  var finalDate = month + " " + day + ", " + year;
-  var finalTime = hours + ":" + minutes + " " + AmOrPm;
+  const finalDate = month + " " + day + ", " + year;
+  const finalTime = hours + ":" + minutes + " " + AmOrPm;
   return (finalDate + "  " + finalTime)
 }
 
@@ -73,10 +71,9 @@ function gatherLatLon(city, state) {
       return response.json();
     })
     .then(function (data) {
-      //console.log(data);
+      console.log(data);
       locationLon = data.results[0].lon;
       locationLat = data.results[0].lat;
-      //console.log(locationLat, locationLon);
       gatherWeather(locationLat, locationLon);
     });
 };
@@ -87,7 +84,7 @@ function gatherWeather(lat, lon) {
       return response.json();
     })
     .then(function (data) {
-      //console.log(data);
+      console.log(data);
       const weather = data.list;
       let selectedDate = unixTimestampTo12Hour(parseInt(weather[0].dt));
       let slicedDate = selectedDate.split("  ");
@@ -98,9 +95,7 @@ function gatherWeather(lat, lon) {
       currentHumi.innerHTML = weather[0].main.humidity + "%";
 
       let storedTimestamp = parseInt(weather[0].dt);
-      var startingDateTime = unixTimestampTo12Hour(storedTimestamp).split("  ");
-
-      console.log("Starting from Today Time: " + startingDateTime[1]);
+      let startingDateTime = unixTimestampTo12Hour(storedTimestamp).split("  ");
       //5-Day Forecast
       for (var d = 0; d < 5; d++) {
         switch (d) {
@@ -109,8 +104,6 @@ function gatherWeather(lat, lon) {
               selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
               slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
-                //console.log("Time from data: " + slicedDate[1]);
-
                 if (slicedDate[1] === startingDateTime[1]) {
                   day1Label.innerHTML = slicedDate[0];
                   day1Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
@@ -127,8 +120,6 @@ function gatherWeather(lat, lon) {
               selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
               slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
-                //console.log("Time from data: " + slicedDate[1]);
-
                 if (slicedDate[1] === startingDateTime[1]) {
                   day2Label.innerHTML = slicedDate[0];
                   day2Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
@@ -146,8 +137,6 @@ function gatherWeather(lat, lon) {
               selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
               slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
-                //console.log("Time from data: " + slicedDate[1]);
-
                 if (slicedDate[1] === startingDateTime[1]) {
                   day3Label.innerHTML = slicedDate[0];
                   day3Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
@@ -185,14 +174,11 @@ function gatherWeather(lat, lon) {
 
 function gatherLocationInput(value) {
   var location = value;
-  console.log(location);
-
   var inputArray = location.split(',');
 
   var fixedStateArray = inputArray[1].trimStart();
   inputArray[1] = fixedStateArray;
 
-  console.log(inputArray);
   gatherLatLon(inputArray);
 };
 
@@ -214,6 +200,22 @@ function locationSaved() {
     localStorage.setItem(name, list[i]);
   }
 }
+
+function locationLoad() {
+  for (var i = 0; i < localStorage.length; i++) {
+    const storedLocation = localStorage.getItem('storedLocation' + [i]);
+    list.push(storedLocation);
+    var location = list[i];
+    var newButton = document.createElement("button");
+    newButton.setAttribute("id", "pastLocation")
+    newButton.innerHTML = location;
+    newButton.value = location;
+    locationList.appendChild(newButton);
+    //console.log(list);
+  }
+}
+
+locationLoad();
 
 weatherButton.addEventListener('click', function () {
   var locationTyped = locationInput.value;

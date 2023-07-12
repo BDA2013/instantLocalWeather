@@ -27,6 +27,10 @@ h2 {
   margin-bottom: 5px;
 }
 
+#pastLocation {
+  margin-left: 3px;
+}
+
 /* Example icon styles */
 .weather-icon {
   font-size: 24px;
