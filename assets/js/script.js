@@ -89,6 +89,9 @@ function gatherWeather(lat, lon) {
     .then(function (data) {
       //console.log(data);
       const weather = data.list;
+      let selectedDate = unixTimestampTo12Hour(parseInt(weather[0].dt));
+      let slicedDate = selectedDate.split("  ");
+      day0Label.innerHTML = slicedDate[0];
       currentTemp.innerHTML = parseInt(weather[0].main.temp) + "°F";
       currentCond.innerHTML = weather[0].weather[0].description;
       currentWind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
@@ -103,12 +106,13 @@ function gatherWeather(lat, lon) {
         switch (d) {
           case 0:
             for (var i = 1; i < weather.length; i++) {
-              let selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
-              let slicedDate = selectedDate.split("  ");
+              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+              slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 //console.log("Time from data: " + slicedDate[1]);
 
                 if (slicedDate[1] === startingDateTime[1]) {
+                  day1Label.innerHTML = slicedDate[0];
                   day1Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
                   day1Cond.innerHTML = weather[i].weather[0].description;
                   day1Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
@@ -120,12 +124,13 @@ function gatherWeather(lat, lon) {
             };
           case 1:
             for (var i = 1; i < weather.length; i++) {
-              let selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
-              let slicedDate = selectedDate.split("  ");
+              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+              slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 //console.log("Time from data: " + slicedDate[1]);
 
                 if (slicedDate[1] === startingDateTime[1]) {
+                  day2Label.innerHTML = slicedDate[0];
                   day2Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
                   day2Cond.innerHTML = weather[i].weather[0].description;
                   day2Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
@@ -138,12 +143,13 @@ function gatherWeather(lat, lon) {
 
           case 2:
             for (var i = 1; i < weather.length; i++) {
-              let selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
-              let slicedDate = selectedDate.split("  ");
+              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+              slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 //console.log("Time from data: " + slicedDate[1]);
 
                 if (slicedDate[1] === startingDateTime[1]) {
+                  day3Label.innerHTML = slicedDate[0];
                   day3Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
                   day3Cond.innerHTML = weather[i].weather[0].description;
                   day3Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
@@ -156,11 +162,12 @@ function gatherWeather(lat, lon) {
 
           case 3:
             for (var i = 1; i < weather.length; i++) {
-              let selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
-              let slicedDate = selectedDate.split("  ");
+              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+              slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
                 //console.log("Time from data: " + slicedDate[1]);
                 if (slicedDate[1] === startingDateTime[1]) {
+                  day4Label.innerHTML = slicedDate[0];
                   day4Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
                   day4Cond.innerHTML = weather[i].weather[0].description;
                   day4Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
