@@ -1,4 +1,4 @@
-# localWeather
+# instantLocalWeather
 
 ## What is this?
 This is a website where you can see what weather is currently occuring in your town today, and the next 5 days as well.  
@@ -17,4 +17,4 @@ This is a website where you can see what weather is currently occuring in your t
 ## Note
 During the building the website, there were a lot obsticles, from figuring out how to recieve data for 5 days without reaching to the end, or converting the Unix timestamp to a proper 12-Hour format. After looking online for solutions regarding the issues, it's much smooth putting them together.
 
-Link for the website: https://bda2013.github.io/localWeather/
+Link for the website: https://bda2013.github.io/instantLocalWeather/
