@@ -50,8 +50,9 @@ var day5Cond = document.getElementById("day5Condition");
 var day5Wind = document.getElementById("day5WindSpeed");
 var day5Humi = document.getElementById("day5Humidity");
 
-function unixTimestampTo12Hour(t) {
-  const dt = new Date(t * 1000);
+//Converting from Unix to 12 Hour format
+function unixTimestampTo12Hour(unix) {
+  const dt = new Date(unix * 1000);
   const month = dt.toLocaleString("en-US", { month: "long" });
   const day = dt.toLocaleString("en-US", { day: "numeric" });
   const year = dt.toLocaleString("en-US", { year: "numeric" });
@@ -64,8 +65,9 @@ function unixTimestampTo12Hour(t) {
   return (finalDate + "  " + finalTime)
 }
 
-function millitaryTo12Hour(t) {
-  const time = t.split(':');
+//Converting Millitary time to 12 hour format
+function millitaryTo12Hour(millitary) {
+  const time = millitary.split(':');
   const hours = (parseInt(time[0]) % 12) || 12 // gives the value in 24 hours format
   const minutes = "0" + parseInt(time[1]);
   const amOrPm = hours >= 12 ? 'pm' : 'am';
@@ -73,6 +75,7 @@ function millitaryTo12Hour(t) {
 
 }
 
+//Moving the time 3 hours to gather data for the 5 day forecast
 function targetFutureTime(presentTime) {
   const time = presentTime.split(':');
   let hours = (parseInt(time[0]) % 12) || 12 // gives the value in 24 hours format
@@ -84,6 +87,7 @@ function targetFutureTime(presentTime) {
   return `${hours}:${minutes} ${amOrPm}`;
 }
 
+//Getting the Latitude the Longitude based on City and State
 function gatherLatLon(city, state) {
   fetch(`https://api.geoapify.com/v1/geocode/search?city=${city}&state=${state}&format=json&apiKey=ff79fe741988451695b4d420a554505d`)
     .then(function (response) {
@@ -97,6 +101,7 @@ function gatherLatLon(city, state) {
     });
 };
 
+//Generates the weather from using latitude longitude
 function gatherWeather(lat, lon) {
   fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=89d3bde90b46aeb52fc0fca5cffee20e`)
     .then(function (response) {
@@ -176,7 +181,6 @@ function gatherWeather(lat, lon) {
               selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
               slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
-                //console.log("Time from data: " + slicedDate[1]);
                 if (slicedDate[1] === targetTime) {
                   day4Label.innerHTML = slicedDate[0];
                   day4Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
@@ -194,7 +198,6 @@ function gatherWeather(lat, lon) {
               selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
               slicedDate = selectedDate.split("  ");
               if (parseInt(weather[i].dt) > storedTimestamp) {
-                //console.log("Time from data: " + slicedDate[1]);
                 if (slicedDate[1] === targetTime) {
                   day5Label.innerHTML = slicedDate[0];
                   day5Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
@@ -212,6 +215,7 @@ function gatherWeather(lat, lon) {
     });
 };
 
+//Format the input typed in
 function gatherLocationInput(value) {
   var location = value;
   var inputArray = location.split(',');
@@ -222,6 +226,7 @@ function gatherLocationInput(value) {
   gatherLatLon(inputArray);
 };
 
+//Saving the typed in location as a Button
 function storeLocationInput(value) {
   var location = value;
   var newButton = document.createElement("button");
@@ -234,6 +239,7 @@ function storeLocationInput(value) {
   locationSaved()
 };
 
+//Saving the location in Local Storage
 function locationSaved() {
   for (var i = 0; i < list.length; i++) {
     var name = "storedLocation" + [i];
@@ -241,6 +247,7 @@ function locationSaved() {
   }
 }
 
+//Loading the locations from Local Storage
 function locationLoad() {
   for (var i = 0; i < localStorage.length; i++) {
     const storedLocation = localStorage.getItem('storedLocation' + [i]);
@@ -251,12 +258,13 @@ function locationLoad() {
     newButton.innerHTML = location;
     newButton.value = location;
     locationList.appendChild(newButton);
-    //console.log(list);
   }
 }
 
 locationLoad();
 
+
+//Typing in Location for the first time
 weatherButton.addEventListener('click', function () {
   var locationTyped = locationInput.value;
   if (forecastVisability.style.visibility == "visible") {
@@ -287,6 +295,7 @@ locationInput.addEventListener('keypress', function (e) {
   }
 });
 
+//Using Buttons
 locationList.addEventListener('click', function (e) {
   if (forecastVisability.style.visibility == "visible") {
     forecastVisability.style.visibility = "hidden";
