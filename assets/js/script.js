@@ -3,6 +3,7 @@ const locationInput = document.getElementById("locationInput");
 const weatherButton = document.getElementById("getWeather");
 const locationList = document.getElementById("locationList");
 const forecastVisability = document.getElementById("results");
+const locationPost = document.getElementById("location");
 let list = [];
 
 function unixTimestampTo12Hour(t) {
@@ -223,9 +224,11 @@ weatherButton.addEventListener('click', function () {
     forecastVisability.style.visibility = "hidden";
     gatherLocationInput(locationTyped);
     storeLocationInput(locationTyped);
+    locationPost.innerHTML = locationTyped;
   } else {
     gatherLocationInput(locationTyped);
     storeLocationInput(locationTyped);
+    locationPost.innerHTML = locationTyped;
   }
 });
 
@@ -236,9 +239,11 @@ locationInput.addEventListener('keypress', function (e) {
       forecastVisability.style.visibility = "hidden";
       gatherLocationInput(locationTyped);
       storeLocationInput(locationTyped);
+      locationPost.innerHTML = locationTyped
     } else {
       gatherLocationInput(locationTyped);
       storeLocationInput(locationTyped);
+      locationPost.innerHTML = locationTyped;
     }
   }
 });
@@ -247,8 +252,10 @@ locationList.addEventListener('click', function (e) {
   if (forecastVisability.style.visibility == "visible") {
     forecastVisability.style.visibility = "hidden";
     gatherLocationInput(e.target.value)
+    locationPost.innerHTML = e.target.value;
   } else {
     gatherLocationInput(e.target.value)
+    locationPost.innerHTML = e.target.value;
   }
 });
 
