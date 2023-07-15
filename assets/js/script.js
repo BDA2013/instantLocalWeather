@@ -79,6 +79,8 @@ function targetFutureTime(presentTime) {
   const minutes = "0" + parseInt(time[1]);
   hours += 3;
   const amOrPm = hours >= 12 ? 'pm' : 'am';
+  hours = (hours % 12) || 12;
+  console.log(`${hours}:${minutes} ${amOrPm}`)
   return `${hours}:${minutes} ${amOrPm}`;
 }
 
@@ -113,6 +115,7 @@ function gatherWeather(lat, lon) {
 
       let storedTimestamp = parseInt(weather[0].dt);
       let startingDateTime = unixTimestampTo12Hour(storedTimestamp).split("  ");
+      console.log(startingDateTime[1]);
       const targetTime = targetFutureTime(startingDateTime[1]);
 
       //5-Day Forecast
