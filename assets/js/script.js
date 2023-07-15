@@ -6,6 +6,8 @@ const forecastVisability = document.getElementById("results");
 const locationPost = document.getElementById("location");
 let list = [];
 
+//https://openweathermap.org/img/wn/10d@2x.png
+
 // Current Day
 var day0Label = document.getElementById("day0");
 var currentIcon = document.getElementById("currentIcon");
@@ -109,16 +111,17 @@ function gatherWeather(lat, lon) {
     })
     .then(function (data) {
       console.log(data);
-      const weather = data.list;
-      let selectedDate = unixTimestampTo12Hour(parseInt(weather[0].dt));
+      const weatherDays = data.list;
+      let selectedDate = unixTimestampTo12Hour(parseInt(weatherDays[0].dt));
       let slicedDate = selectedDate.split("  ");
       day0Label.innerHTML = slicedDate[0];
-      currentTemp.innerHTML = parseInt(weather[0].main.temp) + "°F";
-      currentCond.innerHTML = weather[0].weather[0].description;
-      currentWind.innerHTML = parseInt(weather[0].wind.speed) + " MPH";
-      currentHumi.innerHTML = weather[0].main.humidity + "%";
+      currentIcon.innerHTML = `<img src='https://openweathermap.org/img/wn/${weatherDays[0].weather[0].icon}@2x.png'>`
+      currentTemp.innerHTML = parseInt(weatherDays[0].main.temp) + "°F";
+      currentCond.innerHTML = weatherDays[0].weather[0].description;
+      currentWind.innerHTML = parseInt(weatherDays[0].wind.speed) + " MPH";
+      currentHumi.innerHTML = weatherDays[0].main.humidity + "%";
 
-      let storedTimestamp = parseInt(weather[0].dt);
+      let storedTimestamp = parseInt(weatherDays[0].dt);
       let startingDateTime = unixTimestampTo12Hour(storedTimestamp).split("  ");
       console.log(startingDateTime[1]);
       const targetTime = targetFutureTime(startingDateTime[1]);
@@ -127,84 +130,89 @@ function gatherWeather(lat, lon) {
       for (var d = 0; d < 5; d++) {
         switch (d) {
           case 0:
-            for (var i = 1; i < weather.length; i++) {
-              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+            for (var i = 1; i < weatherDays.length; i++) {
+              selectedDate = unixTimestampTo12Hour(parseInt(weatherDays[i].dt));
               slicedDate = selectedDate.split("  ");
-              if (parseInt(weather[i].dt) > storedTimestamp) {
+              if (parseInt(weatherDays[i].dt) > storedTimestamp) {
                 if (slicedDate[1] === targetTime) {
                   day1Label.innerHTML = slicedDate[0];
-                  day1Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
-                  day1Cond.innerHTML = weather[i].weather[0].description;
-                  day1Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
-                  day1Humi.innerHTML = weather[i].main.humidity + "%";
-                  storedTimestamp = weather[i].dt;
+                  day1Icon.innerHTML = `<img src='https://openweathermap.org/img/wn/${weatherDays[i].weather[0].icon}@2x.png'>`;
+                  day1Temp.innerHTML = parseInt(weatherDays[i].main.temp) + "°F";
+                  day1Cond.innerHTML = weatherDays[i].weather[0].description;
+                  day1Wind.innerHTML = parseInt(weatherDays[i].wind.speed) + " MPH";
+                  day1Humi.innerHTML = weatherDays[i].main.humidity + "%";
+                  storedTimestamp = weatherDays[i].dt;
                   break;
                 };
               };
             };
           case 1:
-            for (var i = 1; i < weather.length; i++) {
-              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+            for (var i = 1; i < weatherDays.length; i++) {
+              selectedDate = unixTimestampTo12Hour(parseInt(weatherDays[i].dt));
               slicedDate = selectedDate.split("  ");
-              if (parseInt(weather[i].dt) > storedTimestamp) {
+              if (parseInt(weatherDays[i].dt) > storedTimestamp) {
                 if (slicedDate[1] === targetTime) {
                   day2Label.innerHTML = slicedDate[0];
-                  day2Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
-                  day2Cond.innerHTML = weather[i].weather[0].description;
-                  day2Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
-                  day2Humi.innerHTML = weather[i].main.humidity + "%";
-                  storedTimestamp = weather[i].dt;
+                  day2Icon.innerHTML = `<img src='https://openweathermap.org/img/wn/${weatherDays[i].weather[0].icon}@2x.png'>`;
+                  day2Temp.innerHTML = parseInt(weatherDays[i].main.temp) + "°F";
+                  day2Cond.innerHTML = weatherDays[i].weather[0].description;
+                  day2Wind.innerHTML = parseInt(weatherDays[i].wind.speed) + " MPH";
+                  day2Humi.innerHTML = weatherDays[i].main.humidity + "%";
+                  storedTimestamp = weatherDays[i].dt;
                   break;
                 };
               };
             };
 
           case 2:
-            for (var i = 1; i < weather.length; i++) {
-              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+            for (var i = 1; i < weatherDays.length; i++) {
+              selectedDate = unixTimestampTo12Hour(parseInt(weatherDays[i].dt));
               slicedDate = selectedDate.split("  ");
-              if (parseInt(weather[i].dt) > storedTimestamp) {
+              if (parseInt(weatherDays[i].dt) > storedTimestamp) {
                 if (slicedDate[1] === targetTime) {
                   day3Label.innerHTML = slicedDate[0];
-                  day3Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
-                  day3Cond.innerHTML = weather[i].weather[0].description;
-                  day3Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
-                  day3Humi.innerHTML = weather[i].main.humidity + "%";
-                  storedTimestamp = weather[i].dt;
+                  day3Icon.innerHTML = `<img src='https://openweathermap.org/img/wn/${weatherDays[i].weather[0].icon}@2x.png'>`;
+                  day3Temp.innerHTML = parseInt(weatherDays[i].main.temp) + "°F";
+                  day3Cond.innerHTML = weatherDays[i].weather[0].description;
+                  day3Wind.innerHTML = parseInt(weatherDays[i].wind.speed) + " MPH";
+                  day3Humi.innerHTML = weatherDays[i].main.humidity + "%";
+                  storedTimestamp = weatherDays[i].dt;
                   break;
                 };
               };
             };
 
           case 3:
-            for (var i = 1; i < weather.length; i++) {
-              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+            for (var i = 1; i < weatherDays.length; i++) {
+              selectedDate = unixTimestampTo12Hour(parseInt(weatherDays[i].dt));
               slicedDate = selectedDate.split("  ");
-              if (parseInt(weather[i].dt) > storedTimestamp) {
+              if (parseInt(weatherDays[i].dt) > storedTimestamp) {
                 if (slicedDate[1] === targetTime) {
                   day4Label.innerHTML = slicedDate[0];
-                  day4Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
-                  day4Cond.innerHTML = weather[i].weather[0].description;
-                  day4Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
-                  day4Humi.innerHTML = weather[i].main.humidity + "%";
-                  storedTimestamp = weather[i].dt;
+                  day4Icon.innerHTML = `<img src='https://openweathermap.org/img/wn/${weatherDays[i].weather[0].icon}@2x.png'>`;
+                  day4Temp.innerHTML = parseInt(weatherDays[i].main.temp) + "°F";
+                  day4Cond.innerHTML = weatherDays[i].weather[0].description;
+                  day4Wind.innerHTML = parseInt(weatherDays[i].wind.speed) + " MPH";
+                  day4Humi.innerHTML = weatherDays[i].main.humidity + "%";
+                  storedTimestamp = weatherDays[i].dt;
                   break;
                 };
               };
             };
 
             case 4:
-            for (var i = 1; i < weather.length; i++) {
-              selectedDate = unixTimestampTo12Hour(parseInt(weather[i].dt));
+            for (var i = 1; i < weatherDays.length; i++) {
+              selectedDate = unixTimestampTo12Hour(parseInt(weatherDays[i].dt));
               slicedDate = selectedDate.split("  ");
-              if (parseInt(weather[i].dt) > storedTimestamp) {
+              if (parseInt(weatherDays[i].dt) > storedTimestamp) {
                 if (slicedDate[1] === targetTime) {
                   day5Label.innerHTML = slicedDate[0];
-                  day5Temp.innerHTML = parseInt(weather[i].main.temp) + "°F";
-                  day5Cond.innerHTML = weather[i].weather[0].description;
-                  day5Wind.innerHTML = parseInt(weather[i].wind.speed) + " MPH";
-                  day5Humi.innerHTML = weather[i].main.humidity + "%";
-                  storedTimestamp = weather[i].dt;
+                  day5Icon.innerHTML = `<img src='https://openweathermap.org/img/wn/${weatherDays[i].weather[0].icon}@2x.png'>`;
+                  day5Temp.innerHTML = parseInt(weatherDays[i].main.temp) + "°F";
+                  day5Cond.innerHTML = weatherDays[i].weather[0].description;
+                  day5Wind.innerHTML = parseInt(weatherDays[i].wind.speed) + " MPH";
+                  day5Humi.innerHTML = weatherDays[i].main.humidity + "%";
+                  storedTimestamp = weatherDays[i].dt;
                   break;
                 };
               };
